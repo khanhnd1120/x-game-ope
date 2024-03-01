@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Button as IButton, FormEntity, BidConfigEntity } from "interfaces";
+import { Button as IButton, FormEntity } from "interfaces";
 import qs from "querystring";
 import { useTranslation } from "react-i18next";
 import Loading from "./loading";
@@ -39,16 +39,16 @@ function FormView({
   );
   async function loadData() {
     let postfn = api.post;
-    let rs    
-      rs = await postfn(`${formInfo.api}`, {
-        where: { id },
-        offset: 0,
-        limit: 1,
-      });    
-      setPayload(rs?.data[0]);
+    let rs;
+    rs = await postfn(`${formInfo.api}`, {
+      where: { id },
+      offset: 0,
+      limit: 1,
+    });
+    setPayload(rs?.data[0]);
     setLoading(false);
   }
-  useEffect(() => {        
+  useEffect(() => {
     if (!(mode === "edit" && id)) {
       setPayload(params.embed || {});
       setLoading(false);
@@ -70,11 +70,11 @@ function FormView({
     if (btn.confirmText) {
       await ui.confirm(t(btn.confirmText));
     }
-    try {      
+    try {
       setSubmitting(true);
       let postfn = api.post;
-      let rs
-     rs = await postfn(btn.api, payload);
+      let rs;
+      rs = await postfn(btn.api, payload);
       if (onCreated) {
         onCreated(rs);
       }
